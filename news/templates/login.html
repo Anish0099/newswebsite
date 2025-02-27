@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}" class="text-decoration-none text-muted">Home</a></li>
+                    <li class="breadcrumb-item active">Login</li>
+                </ol>
+            </nav>
+
+            <!-- Login Form -->
+            <h2 class="text-center mb-4">Login</h2>
+            <form method="post" class="mx-auto" style="max-width: 400px;">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <input type="text" name="{{ form.username.name }}" class="form-control form-control-lg border-0 border-bottom rounded-0" 
+                           placeholder="Username or email" required id="{{ form.username.id_for_label }}">
+                </div>
+                <div class="mb-4">
+                    <input type="password" name="{{ form.password.name }}" class="form-control form-control-lg border-0 border-bottom rounded-0" 
+                           placeholder="Password" required id="{{ form.password.id_for_label }}">
+                </div>
+                <button type="submit" class="btn btn-secondary w-100 py-2 mb-3" style="background-color: #666;">Login</button>
+                <div class="text-center">
+                    <a  class="text-decoration-none text-muted">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #666;
+    }
+    .btn-secondary:hover {
+        background-color: #555 !important;
+    }
+</style>
+{% endblock %}

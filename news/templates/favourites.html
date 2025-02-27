@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Favourite Articles</h1>
+<div class="row">
+    {% if favourites %}
+        {% for favourite in favourites %}
+        <div class="col-md-4">
+            <div class="card news-card">
+                {% if favourite.article.image %}
+                <img src="{{ favourite.article.image.url }}" class="card-img-top" alt="{{ favourite.article.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ favourite.article.title }}</h5>
+                    <p class="card-text">{{ favourite.article.content|truncatewords:30 }}</p>
+                    <a href="{% url 'news_detail' favourite.article.id %}" class="btn btn-primary">Read More</a>
+                    <a href="{% url 'remove_favourite' favourite.article.id %}" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>You have no favourite articles yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

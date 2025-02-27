@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ article.title }}</h1>
+<p>{{ article.content }}</p>
+{% if article.image %}
+<img src="{{ article.image.url }}" alt="{{ article.title }}" width="100%">
+{% endif %}
+{% if article.video %}
+<video width="100%" controls>
+    <source src="{{ article.video.url }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+{% endif %}
+
+{% if user.is_authenticated %}
+    {% if is_favourite %}
+        <a href="{% url 'remove_favourite' article.id %}" class="btn btn-danger">Remove from Favourites</a>
+    {% else %}
+        <a href="{% url 'add_favourite' article.id %}" class="btn btn-primary">Add to Favourites</a>
+    {% endif %}
+{% endif %}
+{% endblock %}

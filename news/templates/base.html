@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News Website</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <style>
+      /* Flexbox layout to stick footer to the bottom */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      .custom-button {
+        border: none;
+        outline: none;
+        color: gray;
+
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .custom-button:focus {
+        outline: none;
+      }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensure the wrapper takes at least the full viewport height */
+      }
+      .content {
+        flex: 1; /* Allow the content to grow and take up remaining space */
+      }
+      .navbar-custom {
+        background-color: rgb(116, 117, 116); /* Dark blue */
+      }
+      .footer-custom {
+        background-color: rgb(116, 117, 116); /* Dark blue */
+        color: white;
+        padding: 20px 0;
+        margin-top: auto; /* Push the footer to the bottom */
+      }
+      .news-card {
+        border: none; /* Removes the border */
+         /* Optional: Adds a subtle shadow for a clean look */
+        /* Optional: Adds rounded corners */
+        overflow: hidden; /* Ensures the content fits well inside the card */
+    }
+      .news-card img {
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container">
+          <a class="navbar-brand"  href="{% url 'home' %}">News Portal</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto" style="color:white">
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'home' %}">Home</a>
+              </li>
+              {% for category in categories %}
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'category_news' category.id %}"
+                  >{{ category.name }}</a
+                >
+              </li>
+              {% endfor %} {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'favourite_articles' %}"
+                  >Favourites</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'logout' %}">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link"  style="color:white" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'register' %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color:white" href="{% url 'admin:index' %}">Admin</a>
+              </li>
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- Main Content -->
+      <div class="content container mt-4">
+        {% block content %} {% endblock %}
+      </div>
+      <!-- Footer -->
+      <footer class="footer-custom text-center">
+        <div class="container">
+          <p>&copy; 2023 News Portal. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
