@@ -27,9 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Updated to a list
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+CSRF_TRUSTED_ORIGINS = ['https://newswebsite-0whz.onrender.com']
+
+
+STATICFILES_DIRS =  [os.path.join(BASE_DIR,'static')]
 
 
 # Application definition
